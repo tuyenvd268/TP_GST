@@ -113,6 +113,30 @@ def plot_att(A, text, global_step, path='.', name=None):
     else:
         plt.savefig(os.path.join(path, 'A-{}.png'.format(global_step)), format='png')
     plt.close(fig)
+    
+def plot_mel(mel, global_step, path='.', name=None):
+    """
+    Saves attention
+
+    :param A: (Tx, Ty) numpy array
+    :param text: (Tx,) list
+    :param global_step: scalar
+    :param path: String. path to save attention
+    :param name: String. Save attention as this name
+
+    """
+    fig, ax = plt.subplots(figsize=(20, 20))
+    im = ax.imshow(mel)
+    fig.colorbar(im, fraction=0.035, pad=0.02)
+    fig.suptitle('{} Steps'.format(global_step), fontsize=32)
+    plt.xlabel('Text', fontsize=28)
+    plt.ylabel('Time', fontsize=28)
+    if name is not None:
+        plt.savefig(os.path.join(path, name), format='png')
+    else:
+        plt.savefig(os.path.join(path, 'mel-{}.png'.format(global_step)), format='png')
+    print("saved: ",os.path.join(path, 'mel-{}.png'.format(global_step)),)
+    plt.close(fig)
 
 def lr_policy(step):
     """

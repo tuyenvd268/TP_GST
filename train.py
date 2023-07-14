@@ -17,7 +17,7 @@ import pandas as pd
 from collections import deque
 from model import TPGST
 from data import SpeechDataset, collate_fn, load_vocab
-from utils import att2img, plot_att, lr_policy
+from utils import att2img, plot_att, lr_policy, plot_mel
 
 # torch.autograd.set_detect_anomaly = True
 
@@ -86,8 +86,9 @@ def train(model, data_loader, valid_loader, optimizer, scheduler, batch_size=32,
                     "loss_ff": loss_ff,
                     "learning_rate": scheduler.get_last_lr()[0]
                 }
+                plot_mel(fmels_hat[0].transpose(0, 1).detach().cpu(), global_step, path=os.path.join(args.logdir, type(model).__name__, 'A', 'train'))
                 
-                print("\n###training log: \n", log)
+                print(f"\n###training log (step={step}): \n", log)
                 writer.add_scalar('batch/loss_mel', loss_mel.item(), global_step)
                 if type(model).__name__ == 'TPGST':
                     writer.add_scalar('batch/loss_se', loss_se.item(), global_step)
