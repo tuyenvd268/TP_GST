@@ -1,0 +1,6 @@
+.ipynb_checkpoints/
+__pycache__/
+logs
+runs
+samples*/
+TSP_GST_data
