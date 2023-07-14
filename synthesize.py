@@ -19,6 +19,7 @@ from data import TextDataset, text_collate_fn, load_vocab, SpeechDataset, collat
 import utils
 import glob
 from scipy.io.wavfile import write
+from utils import plot_data
 
 DEVICE = None
 MAX_WAV_VALUE = 32768.0
@@ -38,10 +39,9 @@ def synthesize(model, vocoder, data_loader, batch_size=100):
             texts = texts.to(DEVICE)
             GO_frames = torch.zeros([texts.shape[0], 1, args.n_mels*args.r]).to(DEVICE)            
             mels_hat, mags_hat, A, _, _, se, _ = model(texts, GO_frames, synth=True)
-            mels_hat = mels_hat.cpu().numpy()
-
-            x = mags_hat.transpose(1, 2)
-            y_g_hat = vocoder(x)
+            plot_data((mels_hat[0].transpose(0, 1).detach().cpu(), mags_hat[0].transpose(0, 1).detach().cpu()), -1, path=os.path.join(args.logdir, type(model).__name__, 'A', 'train'))
+            
+            y_g_hat = vocoder(mels_hat.transpose(1, 2))
             audio = y_g_hat.squeeze()
             audio = audio * MAX_WAV_VALUE
             audio = audio.cpu().numpy().astype('int16')
@@ -73,7 +73,7 @@ def main():
     test_loader = DataLoader(dataset=testset, batch_size=args.test_batch, drop_last=False,
                             shuffle=False, collate_fn=text_collate_fn, pin_memory=True)
     
-    state = torch.load(args.infer_ckpt)
+    state = torch.load(args.infer_ckpt, map_location="cpu")
     model.load_state_dict(state['model'])
     args.global_step = state['global_step']
 
