@@ -31,20 +31,20 @@ class ConfigArgs:
     win_length = 1024 # window length as a number of frames
     r = 1  # reduction factor.
 
-    batch_size = 128 # for training
+    batch_size = 2 # for training
     test_batch = 1 # for test
     max_step = 400000 # maximum training step
     lr = 0.001 # learning rate
     warm_up_steps = 4000.0 # warm up learning rate
     # lr_decay_step = 50000 # actually not decayed per this step
     # lr_step = [100000, 300000] # multiply 1/10
-    Ce = 512  # dimension for character embedding
-    Cx = 256 # dimension for context encoding
+    Ce = 256  # dimension for character embedding
+    Cx = 128 # dimension for context encoding
     Ca = 256 # attention dimension
     drop_rate = 0.05 # dropout rate
     n_tokens = 10 # number of tokens for style token layer
     n_heads = 8 # for multihead attention
 
     max_Tx = 188 # maximum length of text
-    max_Ty = 256 # maximum length of audio
+    max_Ty = 300 # maximum length of audio
     
