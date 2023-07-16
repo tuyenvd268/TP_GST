@@ -8,8 +8,8 @@ class ConfigArgs:
     data_path = '/home/tuyendv/Desktop/expressive_speech_synthesis/data/processed_vlsp_data_phoneme_level'
     mel_dir, mag_dir = 'mel', 'mags'
     meta = 'train.txt'
-    testset = 'test.txt'
-    infer_ckpt = 'logs/TPGST/model-020k.pth.tar'
+    testset = '/home/tuyendv/Desktop/expressive_speech_synthesis/data/processed_vlsp_data_phoneme_level/test.txt'
+    infer_ckpt = 'logs/TPGST/model-085k.pth.tar'
     vocoder_ckpt = 'ckpts/generator_universal.pth.tar'
     logdir = 'logs' # log directory
     sampledir = 'samples' # directory where samples are located
@@ -29,7 +29,7 @@ class ConfigArgs:
     n_mels = 80 # mel spectrogram dimension
     hop_length = 256 # hop length as a number of frames
     win_length = 1024 # window length as a number of frames
-    r = 1  # reduction factor.
+    r = 5  # reduction factor.
 
     batch_size = 2 # for training
     test_batch = 1 # for test

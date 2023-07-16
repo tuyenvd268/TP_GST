@@ -47,7 +47,7 @@ class SpeechDataset(Dataset):
             mel = torch.tensor(np.load(self.fpaths[idx]))
         else:
             mel = self.mels[idx]
-        mel = mel.view(-1, args.n_mels*args.r)
+        # mel = mel.view(-1, args.n_mels*args.r)
         return text, mel
 
     def __len__(self):
