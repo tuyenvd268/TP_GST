@@ -31,8 +31,8 @@ class ConfigArgs:
     win_length = 1024 # window length as a number of frames
     r = 5  # reduction factor.
 
-    batch_size = 2 # for training
-    test_batch = 1 # for test
+    batch_size = 32 # for training
+    test_batch = 16 # for test
     max_step = 400000 # maximum training step
     lr = 0.001 # learning rate
     warm_up_steps = 4000.0 # warm up learning rate
@@ -46,5 +46,4 @@ class ConfigArgs:
     n_heads = 8 # for multihead attention
 
     max_Tx = 188 # maximum length of text
-    max_Ty = 300 # maximum length of audio
-    
+    max_Ty = 250 # maximum length of audio
