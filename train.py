@@ -128,7 +128,7 @@ def train(model, data_loader, valid_loader, optimizer, scheduler, batch_size=32,
             # writer.add_image('train/alignments', att2img(alignment), global_step) # (Tx, Ty)
             text = texts[0].cpu().detach().numpy()
             text = [idx2char[ch] for ch in text]
-            plot_data((mels_hat[0].transpose(0, 1).detach().cpu(), fmels_hat[0].transpose(0, 1).detach().cpu(), alignment[0]), global_step, path=os.path.join(args.logdir, type(model).__name__, 'A', 'train'))
+            plot_data((mels_hat[0].reshape(-1, 80).transpose(0, 1).detach().cpu(), mels[0].reshape(-1, 80).transpose(0, 1).detach().cpu(), alignment[0]), global_step, path=os.path.join(args.logdir, type(model).__name__, 'A', 'train'))
             
             mel_hat = mels_hat[0:1].transpose(1,2).cpu().detach().numpy()
             fmel_hat = fmels_hat[0:1].transpose(1,2).cpu().detach().numpy()

@@ -5,11 +5,11 @@ class ConfigArgs:
     See the comments in this code
 
     """
-    data_path = '/home/tuyendv/Desktop/expressive_speech_synthesis/data/processed_vlsp_data_phoneme_level'
+    data_path = 'train-set'
     mel_dir, mag_dir = 'mel', 'mags'
-    meta = 'train.txt'
-    testset = '/home/tuyendv/Desktop/expressive_speech_synthesis/data/processed_vlsp_data_phoneme_level/test.txt'
-    infer_ckpt = 'logs/TPGST/model-085k.pth.tar'
+    meta = 'meta_data.csv'
+    testset = '/home/tuyendv/Desktop/expressive_speech_synthesis/data/processed_vlsp_data_phoneme_level_temp/test.txt'
+    infer_ckpt = 'logs/TPGST/model-260k.pth.tar'
     vocoder_ckpt = 'ckpts/generator_universal.pth.tar'
     logdir = 'logs' # log directory
     sampledir = 'samples' # directory where samples are located
@@ -32,15 +32,15 @@ class ConfigArgs:
     r = 5  # reduction factor.
 
     batch_size = 32 # for training
-    test_batch = 16 # for test
+    test_batch = 1 # for test
     max_step = 400000 # maximum training step
     lr = 0.001 # learning rate
     warm_up_steps = 4000.0 # warm up learning rate
     # lr_decay_step = 50000 # actually not decayed per this step
     # lr_step = [100000, 300000] # multiply 1/10
-    Ce = 256  # dimension for character embedding
-    Cx = 128 # dimension for context encoding
-    Ca = 256 # attention dimension
+    Ce = 512  # dimension for character embedding
+    Cx = 256 # dimension for context encoding
+    Ca = 512 # attention dimension
     drop_rate = 0.05 # dropout rate
     n_tokens = 10 # number of tokens for style token layer
     n_heads = 8 # for multihead attention

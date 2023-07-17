@@ -17,7 +17,7 @@ def f(fpath):
 
     :param f_args: spectrogram file paths and texts
     """
-    mel, mag = load_spectrogram(os.path.join(args.data_path, 'wavs', f"{fpath}.wav"))
+    mel, mag = load_spectrogram(os.path.join(args.data_path, 'wav', f"{fpath}.wav"))
     fname = os.path.basename(fpath).replace('wav', 'npy')
     np.save(os.path.join(args.data_path, args.mel_dir, fname), mel)
     return None

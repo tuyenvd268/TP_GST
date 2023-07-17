@@ -20,9 +20,16 @@ import utils
 import glob
 from scipy.io.wavfile import write
 from utils import plot_data
+import  time
 
 DEVICE = None
 MAX_WAV_VALUE = 32768.0
+
+def convert_to_hifigan_format(tp_gst_mel):
+    maxval, minval = 3.0, np.log(1e-5)
+    mel = tp_gst_mel.reshape(-1, 80).T * (maxval - minval) + minval
+    
+    return mel
 
 def synthesize(model, vocoder, data_loader, batch_size=100):
     """
@@ -39,9 +46,12 @@ def synthesize(model, vocoder, data_loader, batch_size=100):
             texts = texts.to(DEVICE)
             GO_frames = torch.zeros([texts.shape[0], 1, args.n_mels*args.r]).to(DEVICE)            
             mels_hat, mags_hat, A, _, _, se, _ = model(texts, GO_frames, synth=True)
-            plot_data((mels_hat[0].transpose(0, 1).detach().cpu(), mags_hat[0].transpose(0, 1).detach().cpu()), -1, path=os.path.join(args.logdir, type(model).__name__, 'A', 'train'))
             
-            y_g_hat = vocoder(mels_hat.transpose(1, 2))
+            plot_data((mels_hat[0].reshape(-1, 80).transpose(0, 1).detach().cpu(), A[0].clone().cpu().detach().numpy()), 0, path=os.path.join(args.logdir, type(model).__name__, 'A', 'train'))
+            
+            mel = convert_to_hifigan_format(mels_hat)
+
+            y_g_hat = vocoder(mel.unsqueeze(0))
             audio = y_g_hat.squeeze()
             audio = audio * MAX_WAV_VALUE
             audio = audio.cpu().numpy().astype('int16')
@@ -49,6 +59,8 @@ def synthesize(model, vocoder, data_loader, batch_size=100):
             output_file = 'test_generated_e2e.wav'
             write(output_file, 22050, audio)
             print(f'saved: {output_file}')
+            
+            time.sleep(5)
     return None
 
 def main():
