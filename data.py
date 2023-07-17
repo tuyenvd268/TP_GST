@@ -32,7 +32,7 @@ class SpeechDataset(Dataset):
         for fpath, text in zip(meta.id.values, meta.phoneme.values):
             text = text.lstrip("{").rstrip("}").split(" ")
             t = np.array([_symbol_to_id[ch] for ch in text])
-            f = os.path.join(data_path, args.mel_dir, f"mel-{os.path.basename(fpath).replace('wav', 'npy')}")
+            f = os.path.join(data_path, args.mel_dir, f"{os.path.basename(fpath).replace('wav', 'npy')}")
             self.texts.append(t)
             self.fpaths.append(f"{f}.npy")
         if self.mem_mode:

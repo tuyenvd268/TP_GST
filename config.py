@@ -5,9 +5,9 @@ class ConfigArgs:
     See the comments in this code
 
     """
-    data_path = 'train-set'
+    data_path = 'data/pretrain-data'
     mel_dir, mag_dir = 'mel', 'mags'
-    meta = 'meta_data.csv'
+    meta = 'train.txt'
     testset = '/home/tuyendv/Desktop/expressive_speech_synthesis/data/processed_vlsp_data_phoneme_level_temp/test.txt'
     infer_ckpt = 'logs/TPGST/model-260k.pth.tar'
     vocoder_ckpt = 'ckpts/generator_universal.pth.tar'
@@ -16,10 +16,10 @@ class ConfigArgs:
     mem_mode = False # load all of the mel spectrograms into memory
     log_mode = True # whether it logs
     log_term = 1000 # log every n-th step
-    eval_term = 1000 # log every n-th step
+    eval_term = 5000 # log every n-th step
     synth_wav = False # whether it synthesizes waveform
     save_term = 5000 # save every n-th step
-    n_workers = 4 # number of subprocesses to use for data loading
+    n_workers = 2 # number of subprocesses to use for data loading
     global_step = 0 # global step
 
     tp_start = 100000
@@ -31,7 +31,7 @@ class ConfigArgs:
     win_length = 1024 # window length as a number of frames
     r = 5  # reduction factor.
 
-    batch_size = 32 # for training
+    batch_size = 2 # for training
     test_batch = 1 # for test
     max_step = 400000 # maximum training step
     lr = 0.001 # learning rate
@@ -45,5 +45,5 @@ class ConfigArgs:
     n_tokens = 10 # number of tokens for style token layer
     n_heads = 8 # for multihead attention
 
-    max_Tx = 188 # maximum length of text
-    max_Ty = 250 # maximum length of audio
+    max_Tx = 448 # maximum length of text
+    max_Ty = 800 # maximum length of audio

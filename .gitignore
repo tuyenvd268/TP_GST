@@ -4,5 +4,6 @@ logs
 runs
 samples*/
 TSP_GST_data
+data
 train-set
 *.wav
